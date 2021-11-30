@@ -10,8 +10,8 @@ import { authenticate, isAuth } from './helpers';
 
 const Signin = ({ history }) => {
     const [values, setValues] = useState({
-        email: 'kaloraatjs@gmail.com',
-        password: 'rrrrrr',
+        email: '',
+        password: '',
         buttonText: 'Submit'
     });
 
