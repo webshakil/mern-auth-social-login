@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require("path");
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -26,6 +27,22 @@ app.use(bodyParser.json());
 if ((process.env.NODE_ENV = 'development')) {
     app.use(cors({ origin: `http://localhost:3000` }));
 }
+
+//For deployment
+if ( process.env.NODE_ENV == "production"){
+ 
+    app.use(express.static(path.join(__dirname,"/client/build")));
+ 
+    app.get("*", (req, res) => {
+ 
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    });
+    }else{
+        app.get("/", (req, res) => {
+            res.send("Api is Running");
+        });
+    }
+
 
 // middleware
 app.use('/api', authRoutes);
